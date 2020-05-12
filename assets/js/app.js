@@ -4,6 +4,7 @@
 //This is the list of acitivities which will be updated
 const List = document.getElementById('activity-list');
 eventlistener();
+
 function eventlistener(){
    document.querySelector('#form').addEventListener('submit', addActivity);
    List.addEventListener('click',removeAcitivty);
@@ -11,7 +12,7 @@ function eventlistener(){
 }
 
 function addActivity(activity){
-    //copy the new activity and store it into the new activities tab
+    //copy the new activity from form and store it into the new todo list tab
      const new_activity = document.getElementById('tweet').value;
      
      //create new list to add the new acitivity
@@ -29,14 +30,42 @@ function addActivity(activity){
      new_text.appendChild(remove_button);
      List.appendChild(new_text);
      
-     //for debugging purposes
-     console.log(new_text.textcontent);
+     //add the note to the local storage
+     addLocal(new_activity);
+
+     
+
 }
 
 //removes the acitivity
 function removeAcitivty(event){
    (event.target.classList.contains('remove-button')) ?
-   console.log("LMAO") : console.log("NO");
+   event.target.parentElement.remove() : console.log();
  
 
+} 
+
+function addLocal(new_activity){
+   let notes = getLocal();
+   notes.push(new_activity);
+   localStorage.setItem('notesz', JSON.stringify(notes));
+   console.log("adding..");
+}
+
+function getLocal(){
+   
+   let notesz;
+   const notesLS = localStorage.getItem('notesz');
+   if(notesLS===null){
+      notesz= [];
+      console.log("it was empty");
+      
+      
+   }else{
+    
+      notesz = JSON.parse('notesz');
+      
+
+   }
+   return notesz;
 }
