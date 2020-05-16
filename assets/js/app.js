@@ -3,6 +3,7 @@
 
 //This is the list of acitivities which will be updated
 const List = document.getElementById('activity-list');
+
 eventlistener();
 
 function eventlistener(){
@@ -29,9 +30,10 @@ function addActivity(activity){
      //add the new node to List variable 
      new_text.appendChild(remove_button);
      List.appendChild(new_text);
+     addLocal(new_activity);
      
      //add the note to the local storage
-     addLocal(new_activity);
+     
 
      
 
@@ -46,26 +48,15 @@ function removeAcitivty(event){
 } 
 
 function addLocal(new_activity){
-   let notes = getLocal();
-   notes.push(new_activity);
-   localStorage.setItem('notesz', JSON.stringify(notes));
-   console.log("adding..");
-}
+   var loc = localStorage.getItem('Ary');
 
-function getLocal(){
-   
-   let notesz;
-   const notesLS = localStorage.getItem('notesz');
-   if(notesLS===null){
-      notesz= [];
-      console.log("it was empty");
-      
-      
+   if(loc==null){
+      var notez = [];
    }else{
-    
-      notesz = JSON.parse('notesz');
-      
-
+      var notez= JSON.parse(loc);
    }
-   return notesz;
+   notez.push(new_activity);
+   localStorage.setItem('Ary',JSON.stringify(notez));
+
+   
 }
