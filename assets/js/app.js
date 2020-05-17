@@ -6,6 +6,7 @@ const List = document.getElementById('activity-list');
 
 eventlistener();
 
+//a function containing all even listeners
 function eventlistener(){
    document.querySelector('#form').addEventListener('submit', addActivity);
    List.addEventListener('click',removeAcitivty);
@@ -13,6 +14,8 @@ function eventlistener(){
 
 }
 
+
+//adds new note 
 function addActivity(activity){
     //copy the new activity from form and store it into the new todo list tab
      const new_activity = document.getElementById('tweet').value;
@@ -31,9 +34,10 @@ function addActivity(activity){
      //add the new node to List variable 
      new_text.appendChild(remove_button);
      List.appendChild(new_text);
-     addLocal(new_activity);
+     
      
      //add the note to the local storage
+     addLocal(new_activity);
      
 
      
@@ -45,11 +49,14 @@ function removeAcitivty(event){
    (event.target.classList.contains('remove-button')) ?
    event.target.parentElement.remove() : console.log();
 
+
+   //also remove it from the local storage
    removefromLS(event.target.parentElement.textContent);
  
 
 } 
 
+//add the note to localStorage
 function addLocal(new_activity){
    var loc = localStorage.getItem('Ary');
 
@@ -64,6 +71,7 @@ function addLocal(new_activity){
    
 }
 
+//Load theNotes from localStorage
 function loadNotes(){
    let notes = JSON.parse(localStorage.getItem('Ary'));
 
@@ -89,8 +97,9 @@ function loadNotes(){
 }
 
 
+//Remove the notes from LocalStorage
 function removefromLS(note){
-   note =note.substring(0, note.length-1)
+   note = note.substring(0, note.length-1)
    console.log(note);
 
    //get the localstorage array
@@ -99,6 +108,8 @@ function removefromLS(note){
 
    aryLS.forEach(function(check_note,index){
       if(check_note===note){
+
+         //an easter egg ;)
          console.log("yeee haw");
          aryLS.splice(index,1);
 
@@ -106,8 +117,9 @@ function removefromLS(note){
 
    });
 
-   console.log(aryLS);
+   
 
+   //after removing the note, set it to the localstorage.
    localStorage.setItem('Ary',JSON.stringify(aryLS));
 
 
